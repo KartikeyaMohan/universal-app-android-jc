@@ -33,7 +33,7 @@ android {
             buildConfigField("String", "BASE_URL", "\"https://universal-app.com/api/v1/\"")
         }
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://192.168.1.3:3000/api/v1/\"")
+            buildConfigField("String", "BASE_URL", "\"http://localhost:3000/api/v1/\"")
         }
     }
     compileOptions {

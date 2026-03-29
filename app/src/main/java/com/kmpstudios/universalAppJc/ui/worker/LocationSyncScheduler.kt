@@ -33,7 +33,7 @@ class LocationSyncScheduler @Inject constructor(
             .setConstraints(constraints)
             .setBackoffCriteria(
                 BackoffPolicy.EXPONENTIAL,
-                15, TimeUnit.HOURS
+                SYNC_INTERVAL_HOURS, TimeUnit.HOURS
             )
             .build()
 
