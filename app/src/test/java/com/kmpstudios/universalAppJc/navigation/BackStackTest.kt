@@ -19,7 +19,7 @@ class BackStackTest {
     }
 
     @Test
-    fun `navigating to More pushes onto backstack`() {
+    fun `navigating to Profile pushes onto backstack`() {
         backStack.add(Profile)
 
         assertEquals(2, backStack.size)

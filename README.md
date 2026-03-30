@@ -5,7 +5,7 @@ A sample Android application built with **Kotlin**, **Jetpack Compose**, and **M
 ## Features
 
 - **Startup**: Login and register against a REST API; tokens stored with **EncryptedSharedPreferences**.
-- **Home**: Entry points to Movies, Location, and More.
+- **Home**: Entry points to Movies, Location, and Profile.
 - **Movies**: Paginated movie list, detail screen with cast and trailer support (Media3).
 - **Location**: Foreground location collection, local persistence (**Room**), periodic sync (**WorkManager**), and bulk upload to the API.
 - **Navigation**: Navigation 3 with typed `NavKey` routes and Hilt-assisted ViewModels.
@@ -79,7 +79,7 @@ Integration suites include:
 
 - Movie list and movie detail screens (loading, success, errors, pagination).
 - Login and register flows (mock API + navigation assertions).
-- Home and More screens (navigation and visibility).
+- Home and Profile screens (navigation and visibility).
 
 Ensure an emulator is running or a device is connected with USB debugging enabled.
 

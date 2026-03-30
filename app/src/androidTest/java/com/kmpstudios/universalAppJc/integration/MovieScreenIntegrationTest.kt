@@ -3,14 +3,12 @@ package com.kmpstudios.universalAppJc.integration
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.kmpstudios.universalAppJc.HiltTestActivity
 import com.kmpstudios.universalAppJc.di.TestApiModule
 import com.kmpstudios.universalAppJc.fake.FakeResponses
 import com.kmpstudios.universalAppJc.ui.navigation.LocalNavigator
@@ -18,9 +16,11 @@ import com.kmpstudios.universalAppJc.ui.navigation.MovieDetails
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
 import com.kmpstudios.universalAppJc.ui.screens.movies.MovieScreen
 import com.kmpstudios.universalAppJc.ui.utils.TestTags
+import com.kmpstudios.universalAppJc.utils.ComposeHiltThemeRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.SocketPolicy
@@ -37,11 +37,14 @@ class MovieScreenIntegrationTest {
 
     private lateinit var mockWebServer: MockWebServer
 
+    private val themeRule = ComposeHiltThemeRule()
+
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @get:Rule(order = 1)
-    val composeTestRule = createAndroidComposeRule<HiltTestActivity>()
+    val composeTestRule = themeRule.composeTestRule
 
     private val navigatedKeys = mutableListOf<NavKey>()
 
@@ -66,7 +69,7 @@ class MovieScreenIntegrationTest {
     }
 
     private fun setMovieScreenContent() {
-        composeTestRule.setContent {
+        themeRule.setContent {
             CompositionLocalProvider(
                 LocalNavigator provides { key -> navigatedKeys.add(key) }
             ) {

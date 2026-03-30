@@ -1,10 +1,10 @@
 package com.kmpstudios.universalAppJc.navigation
 
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kmpstudios.universalAppJc.ui.utils.TestTags
+import com.kmpstudios.universalAppJc.utils.ComposeThemeRule
 import com.kmpstudios.universalAppJc.utils.setAppContent
 import com.kmpstudios.universalAppJc.utils.waitUntilDisplayed
 import org.junit.Rule
@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 class NavigationRenderTest {
 
     @get:Rule
-    val composeRule = createComposeRule()
+    val composeRule = ComposeThemeRule().composeTestRule
 
     @Test
     fun homeScreen_isShowOnLaunch() {
