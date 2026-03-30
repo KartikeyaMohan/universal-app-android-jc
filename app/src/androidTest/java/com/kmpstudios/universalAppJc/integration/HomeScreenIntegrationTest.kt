@@ -8,7 +8,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kmpstudios.universalAppJc.ui.navigation.LocalNavigator
 import com.kmpstudios.universalAppJc.ui.navigation.Location
-import com.kmpstudios.universalAppJc.ui.navigation.More
+import com.kmpstudios.universalAppJc.ui.navigation.Profile
 import com.kmpstudios.universalAppJc.ui.navigation.Movie
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
 import com.kmpstudios.universalAppJc.ui.screens.HomeScreen
@@ -81,6 +81,6 @@ class HomeScreenIntegrationTest {
         }
 
         composeTestRule.onNodeWithTag(TestTags.CARD_HOME_TO_MORE).performClick()
-        assertTrue(keys.first() is More)
+        assertTrue(keys.first() is Profile)
     }
 }

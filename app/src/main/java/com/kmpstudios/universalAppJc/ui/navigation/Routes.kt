@@ -22,11 +22,7 @@ data object Home: NavKey()
 
 @Parcelize
 @Serializable
-data object Image: NavKey()
-
-@Parcelize
-@Serializable
-data object More: NavKey()
+data object Profile: NavKey()
 
 @Parcelize
 @Serializable

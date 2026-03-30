@@ -4,7 +4,7 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.navigation3.runtime.EntryProviderScope
 import com.kmpstudios.universalAppJc.ui.activities.App
 import com.kmpstudios.universalAppJc.ui.navigation.Home
-import com.kmpstudios.universalAppJc.ui.navigation.More
+import com.kmpstudios.universalAppJc.ui.navigation.Profile
 import com.kmpstudios.universalAppJc.ui.navigation.Movie
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
 import com.kmpstudios.universalAppJc.ui.screens.HomeScreen
@@ -16,7 +16,7 @@ fun ComposeContentTestRule.setAppContent(
     isAuthenticated: Boolean = true,
     entryBuilders: Set<EntryProviderScope<NavKey>.() -> Unit> = setOf(
         { entry<Home> { HomeScreen() } },
-        { entry<More> { MoreScreen() } },
+        { entry<Profile> { MoreScreen() } },
         { entry<Movie> { MovieScreen() } }
     )
 ) {

@@ -11,7 +11,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class MoreScreenIntegrationTest {
+class ProfileScreenIntegrationTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -22,6 +22,6 @@ class MoreScreenIntegrationTest {
             MoreScreen()
         }
 
-        composeTestRule.onNodeWithTag(TestTags.MORE_SCREEN).assertIsDisplayed()
+        composeTestRule.onNodeWithTag(TestTags.PROFILE_SCREEN).assertIsDisplayed()
     }
 }

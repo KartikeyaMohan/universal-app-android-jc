@@ -1,13 +1,10 @@
 package com.kmpstudios.universalAppJc.ui.screens
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -23,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kmpstudios.universalAppJc.ui.navigation.LocalNavigator
 import com.kmpstudios.universalAppJc.ui.navigation.Location
-import com.kmpstudios.universalAppJc.ui.navigation.More
+import com.kmpstudios.universalAppJc.ui.navigation.Profile
 import com.kmpstudios.universalAppJc.ui.navigation.Movie
 import com.kmpstudios.universalAppJc.ui.utils.TestTags
 import com.kmpstudios.universalAppJc.ui.views.movies.beigeColor
@@ -102,10 +99,10 @@ fun HomeScreen() {
                 width = 0.5.dp,
                 color = champagneColor
             ),
-            onClick = { navigator(More) }
+            onClick = { navigator(Profile) }
         ) {
             Text(
-                text = "More",
+                text = "Profile",
                 fontSize = 30.sp,
                 color = Color.Black,
                 modifier = Modifier.padding(20.dp).fillMaxWidth(),

@@ -1,7 +1,7 @@
 package com.kmpstudios.universalAppJc.navigation
 
 import com.kmpstudios.universalAppJc.ui.navigation.Home
-import com.kmpstudios.universalAppJc.ui.navigation.More
+import com.kmpstudios.universalAppJc.ui.navigation.Profile
 import com.kmpstudios.universalAppJc.ui.navigation.Movie
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
 import com.kmpstudios.universalAppJc.ui.navigation.Navigator
@@ -17,8 +17,8 @@ class NavigatorTest {
 
         navigator(Home)
         navigator(Movie)
-        navigator(More)
+        navigator(Profile)
 
-        assertEquals(listOf(Home, Movie, More), navigateTo)
+        assertEquals(listOf(Home, Movie, Profile), navigateTo)
     }
 }

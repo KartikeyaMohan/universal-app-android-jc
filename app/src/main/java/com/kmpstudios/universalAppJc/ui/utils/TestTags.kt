@@ -2,7 +2,7 @@ package com.kmpstudios.universalAppJc.ui.utils
 
 object TestTags {
     const val HOME_SCREEN = "screen_home"
-    const val MORE_SCREEN = "screen_more"
+    const val PROFILE_SCREEN = "screen_profile"
 
     const val TAB_HOME = "tab_home"
     const val TAB_MORE = "tab_more"

@@ -3,7 +3,6 @@ package com.kmpstudios.universalAppJc.navigation
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.test.espresso.Espresso
@@ -27,7 +26,7 @@ class NavigationFlowTest {
 
         composeRule.onNodeWithTag(TestTags.TAB_MORE).performClick()
 
-        composeRule.onNodeWithTag(TestTags.MORE_SCREEN).assertIsDisplayed()
+        composeRule.onNodeWithTag(TestTags.PROFILE_SCREEN).assertIsDisplayed()
     }
 
     @Test
@@ -55,8 +54,8 @@ class NavigationFlowTest {
         composeRule.waitUntilDisplayed(TestTags.HOME_SCREEN)
 
         composeRule.onNodeWithTag(TestTags.TAB_MORE).performClick()
-        composeRule.waitUntilDisplayed(TestTags.MORE_SCREEN)
-        composeRule.onNodeWithTag(TestTags.MORE_SCREEN).assertIsDisplayed()
+        composeRule.waitUntilDisplayed(TestTags.PROFILE_SCREEN)
+        composeRule.onNodeWithTag(TestTags.PROFILE_SCREEN).assertIsDisplayed()
 
         composeRule.onNodeWithTag(TestTags.TAB_MORE).performClick()
 
