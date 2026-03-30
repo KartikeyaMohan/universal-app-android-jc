@@ -11,7 +11,7 @@ import com.kmpstudios.universalAppJc.ui.navigation.Location
 import com.kmpstudios.universalAppJc.ui.navigation.Profile
 import com.kmpstudios.universalAppJc.ui.navigation.Movie
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
-import com.kmpstudios.universalAppJc.ui.screens.HomeScreen
+import com.kmpstudios.universalAppJc.ui.screens.home.HomeScreen
 import com.kmpstudios.universalAppJc.ui.utils.TestTags
 import junit.framework.TestCase.assertTrue
 import org.junit.Rule
@@ -36,7 +36,7 @@ class HomeScreenIntegrationTest {
 
         composeTestRule.onNodeWithTag(TestTags.CARD_HOME_TO_MOVIE).assertIsDisplayed()
         composeTestRule.onNodeWithTag(TestTags.CARD_HOME_TO_LOCATION).assertIsDisplayed()
-        composeTestRule.onNodeWithTag(TestTags.CARD_HOME_TO_MORE).assertIsDisplayed()
+        composeTestRule.onNodeWithTag(TestTags.CARD_HOME_TO_PROFILE).assertIsDisplayed()
     }
 
     @Test
@@ -80,7 +80,7 @@ class HomeScreenIntegrationTest {
             }
         }
 
-        composeTestRule.onNodeWithTag(TestTags.CARD_HOME_TO_MORE).performClick()
+        composeTestRule.onNodeWithTag(TestTags.CARD_HOME_TO_PROFILE).performClick()
         assertTrue(keys.first() is Profile)
     }
 }

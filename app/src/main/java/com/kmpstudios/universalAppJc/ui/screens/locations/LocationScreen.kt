@@ -55,13 +55,15 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kmpstudios.universalAppJc.ui.navigation.LocalNavigator
 import com.kmpstudios.universalAppJc.ui.navigation.LocationTable
-import com.kmpstudios.universalAppJc.ui.navigation.MovieDetails
+import com.kmpstudios.universalAppJc.ui.screens.BaseScreen
+import com.kmpstudios.universalAppJc.ui.theme.AppTheme
 import com.kmpstudios.universalAppJc.ui.viewmodels.LocationViewModel
 
 @Composable
 fun LocationScreen(
     locationViewModel: LocationViewModel = hiltViewModel()
 ) {
+    val colors = AppTheme.colors
     val navigator = LocalNavigator.current
     val context = LocalContext.current
     val scrollState = rememberScrollState()
@@ -94,198 +96,204 @@ fun LocationScreen(
         animationSpec = tween(600),
         label = "indicator_color"
     )
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp)
-            .verticalScroll(scrollState),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(
+    BaseScreen(showTopBar = true) {
+        Column(
             modifier = Modifier
-                .size(160.dp)
-                .clip(CircleShape)
-                .background(indicatorColor.copy(alpha = 0.12f)),
-            contentAlignment = Alignment.Center
+                .fillMaxSize()
+                .padding(20.dp)
+                .verticalScroll(scrollState),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
                 modifier = Modifier
-                    .size(120.dp)
+                    .size(160.dp)
                     .clip(CircleShape)
-                    .background(indicatorColor.copy(alpha = 0.25f)),
+                    .background(indicatorColor.copy(alpha = 0.12f)),
                 contentAlignment = Alignment.Center
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(CircleShape)
+                        .background(indicatorColor.copy(alpha = 0.25f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = if (isServiceRunning)
+                            Icons.Default.LocationOn
+                        else
+                            Icons.Default.LocationOff,
+                        contentDescription = null,
+                        tint = indicatorColor,
+                        modifier = Modifier.size(56.dp)
+                    )
+                }
+            }
+            Text(
+                text = if (isServiceRunning) "Tracking Active" else "Tracking Stopped",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.SemiBold,
+                color = indicatorColor,
+                modifier = Modifier.padding(top = 15.dp)
+            )
+
+            Text(
+                text = if (isServiceRunning)
+                    "Location updates every 30 seconds"
+                else
+                    "Press Start to begin collecting location data",
+                style = MaterialTheme.typography.bodyMedium,
+                color = colors.textPrimary,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 10.dp)
+            )
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = colors.backgroundSecondary
+                )
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    val locationCount by locationViewModel.locationCount.collectAsStateWithLifecycle()
+                    StatItem(
+                        value = locationCount.toString(),
+                        label = "Locations Stored",
+                        color = colors.textPrimary,
+                        secondaryColor = colors.textSecondary
+                    )
+                    Divider(
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(1.dp),
+                        color = colors.divider
+                    )
+                    StatItem(
+                        value = "3h",
+                        label = "Sync Interval",
+                        color = colors.textPrimary,
+                        secondaryColor = colors.textSecondary
+                    )
+                    Divider(
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(1.dp),
+                        color = colors.divider
+                    )
+                    StatItem(
+                        value = "30s",
+                        label = "Update Rate",
+                        color = colors.textPrimary,
+                        secondaryColor = colors.textSecondary
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(
+                onClick = {
+                    if (isServiceRunning) {
+                        locationViewModel.stopService(context)
+                    } else {
+                        permissionLauncher.launch(permissionsToRequest)
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp)
+                    .height(56.dp),
+                shape = RoundedCornerShape(14.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isServiceRunning)
+                        MaterialTheme.colorScheme.error
+                    else
+                        MaterialTheme.colorScheme.primary
+                )
             ) {
                 Icon(
                     imageVector = if (isServiceRunning)
-                        Icons.Default.LocationOn
+                        Icons.Default.LocationOff
                     else
-                        Icons.Default.LocationOff,
+                        Icons.Default.LocationOn,
                     contentDescription = null,
-                    tint = indicatorColor,
-                    modifier = Modifier.size(56.dp)
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = if (isServiceRunning) "Stop Tracking" else "Start Tracking",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold
                 )
             }
-        }
-        Text(
-            text = if (isServiceRunning) "Tracking Active" else "Tracking Stopped",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.SemiBold,
-            color = indicatorColor,
-            modifier = Modifier.padding(top = 15.dp)
-        )
-
-        Text(
-            text = if (isServiceRunning)
-                "Location updates every 30 seconds"
-            else
-                "Press Start to begin collecting location data",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 10.dp)
-        )
-        Card(
-            modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
-            )
-        ) {
-            Row(
+            Spacer(modifier = Modifier.padding(20.dp))
+            OutlinedButton(
+                onClick = { navigator(LocationTable) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
+                    .height(56.dp),
+                shape = RoundedCornerShape(14.dp)
             ) {
-                val locationCount by locationViewModel.locationCount.collectAsStateWithLifecycle()
-                StatItem(
-                    value = locationCount.toString(),
-                    label = "Locations Stored",
-                    color = MaterialTheme.colorScheme.primary
+                Icon(
+                    imageVector = Icons.Default.TableRows,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
                 )
-                Divider(
-                    modifier = Modifier
-                        .height(40.dp)
-                        .width(1.dp),
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-                )
-                StatItem(
-                    value = "3h",
-                    label = "Sync Interval",
-                    color = MaterialTheme.colorScheme.secondary
-                )
-                Divider(
-                    modifier = Modifier
-                        .height(40.dp)
-                        .width(1.dp),
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-                )
-                StatItem(
-                    value = "30s",
-                    label = "Update Rate",
-                    color = MaterialTheme.colorScheme.tertiary
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "View Stored Locations",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
                 )
             }
-        }
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Button(
-            onClick = {
-                if (isServiceRunning) {
-                    locationViewModel.stopService(context)
-                } else {
-                    permissionLauncher.launch(permissionsToRequest)
-                }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.dp)
-                .height(56.dp),
-            shape = RoundedCornerShape(14.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = if (isServiceRunning)
-                    MaterialTheme.colorScheme.error
-                else
-                    MaterialTheme.colorScheme.primary
-            )
-        ) {
-            Icon(
-                imageVector = if (isServiceRunning)
-                    Icons.Default.LocationOff
-                else
-                    Icons.Default.LocationOn,
-                contentDescription = null,
-                modifier = Modifier.size(20.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = if (isServiceRunning) "Stop Tracking" else "Start Tracking",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold
-            )
-        }
-        Spacer(modifier = Modifier.padding(20.dp))
-        OutlinedButton(
-            onClick = { navigator(LocationTable) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            shape = RoundedCornerShape(14.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Default.TableRows,
-                contentDescription = null,
-                modifier = Modifier.size(20.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "View Stored Locations",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
-            )
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        OutlinedButton(
-            onClick = { locationViewModel.postLocations() },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            shape = RoundedCornerShape(14.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Default.Sync,
-                contentDescription = null,
-                modifier = Modifier.size(20.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Sync locations immediately",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
-            )
-        }
-        if (permissionDeniedPermanently) {
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer
-                ),
-                shape = RoundedCornerShape(12.dp)
+            Spacer(modifier = Modifier.height(20.dp))
+            OutlinedButton(
+                onClick = { locationViewModel.postLocations() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(14.dp)
             ) {
-                Text(
-                    text = "⚠️ Location permission is required. Please grant it in App Settings.",
-                    modifier = Modifier.padding(16.dp),
-                    color = MaterialTheme.colorScheme.onErrorContainer,
-                    style = MaterialTheme.typography.bodySmall,
-                    textAlign = TextAlign.Center
+                Icon(
+                    imageVector = Icons.Default.Sync,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
                 )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "Sync locations immediately",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+            if (permissionDeniedPermanently) {
+                Card(
+                    modifier = Modifier.padding(top = 20.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        text = "⚠️ Location permission is required. Please grant it in App Settings.",
+                        modifier = Modifier.padding(16.dp),
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        style = MaterialTheme.typography.bodySmall,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun StatItem(value: String, label: String, color: Color) {
+private fun StatItem(value: String, label: String, color: Color, secondaryColor: Color) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = value,
@@ -296,7 +304,7 @@ private fun StatItem(value: String, label: String, color: Color) {
         Text(
             text = label,
             style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+            color = secondaryColor,
             textAlign = TextAlign.Center
         )
     }

@@ -24,7 +24,7 @@ class NavigationFlowTest {
     fun clickingMoreTab_navigatesToMoreScreen() {
         composeRule.setAppContent()
 
-        composeRule.onNodeWithTag(TestTags.TAB_MORE).performClick()
+        composeRule.onNodeWithTag(TestTags.TAB_PROFILE).performClick()
 
         composeRule.onNodeWithTag(TestTags.PROFILE_SCREEN).assertIsDisplayed()
     }
@@ -42,9 +42,9 @@ class NavigationFlowTest {
     fun moreTab_isSelected_afterNavigation() {
         composeRule.setAppContent()
 
-        composeRule.onNodeWithTag(TestTags.TAB_MORE).performClick()
+        composeRule.onNodeWithTag(TestTags.TAB_PROFILE).performClick()
 
-        composeRule.onNodeWithTag(TestTags.TAB_MORE).assertIsSelected()
+        composeRule.onNodeWithTag(TestTags.TAB_PROFILE).assertIsSelected()
     }
 
     @Test
@@ -53,11 +53,11 @@ class NavigationFlowTest {
 
         composeRule.waitUntilDisplayed(TestTags.HOME_SCREEN)
 
-        composeRule.onNodeWithTag(TestTags.TAB_MORE).performClick()
+        composeRule.onNodeWithTag(TestTags.TAB_PROFILE).performClick()
         composeRule.waitUntilDisplayed(TestTags.PROFILE_SCREEN)
         composeRule.onNodeWithTag(TestTags.PROFILE_SCREEN).assertIsDisplayed()
 
-        composeRule.onNodeWithTag(TestTags.TAB_MORE).performClick()
+        composeRule.onNodeWithTag(TestTags.TAB_PROFILE).performClick()
 
         Espresso.pressBack()
 

@@ -73,7 +73,7 @@ object ApiModule {
                 val refreshToken = tokenManager.getRefreshToken()
                 if (refreshToken.isNullOrEmpty().not()) {
                     chainBuilder
-                        .addHeader("Authorization", "Bearer $refreshToken")
+                        .addHeader("X-Refresh-Token", refreshToken)
                 }
             }
             chain.proceed(chainBuilder.build())

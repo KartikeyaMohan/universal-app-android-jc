@@ -31,6 +31,6 @@ class NavigationRenderTest {
         composeRule.setAppContent()
 
         composeRule.onNodeWithTag(TestTags.TAB_HOME).assertIsDisplayed()
-        composeRule.onNodeWithTag(TestTags.TAB_MORE).assertIsDisplayed()
+        composeRule.onNodeWithTag(TestTags.TAB_PROFILE).assertIsDisplayed()
     }
 }

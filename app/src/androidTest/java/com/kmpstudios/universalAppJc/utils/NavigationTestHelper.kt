@@ -7,7 +7,7 @@ import com.kmpstudios.universalAppJc.ui.navigation.Home
 import com.kmpstudios.universalAppJc.ui.navigation.Profile
 import com.kmpstudios.universalAppJc.ui.navigation.Movie
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
-import com.kmpstudios.universalAppJc.ui.screens.HomeScreen
+import com.kmpstudios.universalAppJc.ui.screens.home.HomeScreen
 import com.kmpstudios.universalAppJc.ui.screens.MoreScreen
 import com.kmpstudios.universalAppJc.ui.screens.movies.MovieScreen
 import com.kmpstudios.universalAppJc.ui.theme.UniversalAppTheme

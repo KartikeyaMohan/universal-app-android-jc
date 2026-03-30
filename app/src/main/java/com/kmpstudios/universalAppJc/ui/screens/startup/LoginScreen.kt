@@ -1,5 +1,6 @@
 package com.kmpstudios.universalAppJc.ui.screens.startup
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +49,7 @@ import com.kmpstudios.universalAppJc.ui.navigation.Home
 import com.kmpstudios.universalAppJc.ui.navigation.LocalNavigator
 import com.kmpstudios.universalAppJc.ui.navigation.LocalRootNavigator
 import com.kmpstudios.universalAppJc.ui.navigation.Register
+import com.kmpstudios.universalAppJc.ui.theme.AppTheme
 import com.kmpstudios.universalAppJc.ui.utils.TestTags
 import com.kmpstudios.universalAppJc.ui.viewmodels.LoginViewModel
 import com.kmpstudios.universalAppJc.ui.views.GlassCard
@@ -57,6 +59,7 @@ fun LoginScreen(
     loginViewModel: LoginViewModel = hiltViewModel()
 ) {
 
+    val colors = AppTheme.colors
     val rootNavigator = LocalRootNavigator.current
     val navigator = LocalNavigator.current
 
@@ -78,7 +81,9 @@ fun LoginScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colors.backgroundPrimary)
     ) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -87,9 +92,9 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             GlassCard(
-                color = Color.White,
                 modifier = Modifier
-                    .padding(horizontal = 10.dp)
+                    .padding(horizontal = 15.dp),
+                color = colors.brandAccent
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize()

@@ -13,11 +13,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.kmpstudios.universalAppJc.ui.theme.AppTheme
 
 @Composable
 fun GlassCard(
-    color: Color,
     modifier: Modifier = Modifier,
+    color: Color = AppTheme.colors.surfaceBorder,
     content: @Composable () -> Unit
 ) {
     Box(
@@ -26,7 +27,7 @@ fun GlassCard(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        color.copy(alpha = 0.25f),
+                        color.copy(alpha = 0.45f),
                         color.copy(alpha = 0.15f)
                     )
                 )
@@ -35,7 +36,7 @@ fun GlassCard(
                 width = 1.5.dp,
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        color.copy(alpha = 0.5f),
+                        color.copy(alpha = 0.8f),
                         color.copy(alpha = 0.2f)
                     )
                 ),

@@ -78,17 +78,17 @@ fun App(
     ) {
         mutableStateListOf(initialKey)
     }
-    val isInAuthFlow = backStack.last() is Login || backStack.last() is Register
 
     CompositionLocalProvider(
         LocalNavigator provides { key -> backStack.add(key) },
         LocalRootNavigator provides { key -> backStack.clear(); backStack.add(key) },
         LocalOnBack provides { backStack.removeLastOrNull() }
     ) {
+        val currentKey = backStack.last()
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             bottomBar = {
-                if (!isInAuthFlow) {
+                if (currentKey.showBottomBar) {
                     BottomBar(
                         currentKey = backStack.last(),
                         onTabSelected = { key ->

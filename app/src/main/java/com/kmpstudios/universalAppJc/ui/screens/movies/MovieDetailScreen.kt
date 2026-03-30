@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kmpstudios.universalAppJc.ui.theme.AppTheme
 import com.kmpstudios.universalAppJc.ui.utils.TestTags
 import com.kmpstudios.universalAppJc.ui.viewmodels.MovieDetailsViewModel
 import com.kmpstudios.universalAppJc.ui.views.VideoPlayer
@@ -45,6 +46,7 @@ import com.kmpstudios.universalAppJc.ui.views.movies.CastItem
 fun MovieDetailScreen(
     movieDetailsViewModel: MovieDetailsViewModel
 ) {
+    val colors = AppTheme.colors
     val movieDetailResponse by movieDetailsViewModel.movieDetailResponse.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
     var isFullScreen by rememberSaveable { mutableStateOf(false) }
@@ -78,6 +80,7 @@ fun MovieDetailScreen(
                 Text(
                     text = movieDetailResponse?.name ?: "",
                     fontSize = 30.sp,
+                    color = colors.textPrimary,
                     modifier = Modifier.semantics { testTag = TestTags.MOVIE_NAME }
                 )
                 Spacer(modifier = Modifier.padding(top = 10.dp))
@@ -94,6 +97,7 @@ fun MovieDetailScreen(
                     Text(
                         text = if (movieDetailResponse?.rating != null) movieDetailResponse?.rating.toString() else "",
                         fontSize = 16.sp,
+                        color = colors.textSecondary,
                         modifier = Modifier.semantics { testTag = TestTags.MOVIE_RATING }
                     )
                 }
@@ -101,6 +105,7 @@ fun MovieDetailScreen(
                 Text(
                     text = movieDetailResponse?.description ?: "",
                     fontSize = 14.sp,
+                    color = colors.textSecondary,
                     modifier = Modifier.testTag(TestTags.MOVIE_DESCRIPTION)
                 )
                 Spacer(modifier = Modifier.padding(top = 10.dp))

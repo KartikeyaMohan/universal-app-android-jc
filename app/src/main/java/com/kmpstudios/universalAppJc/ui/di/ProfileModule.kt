@@ -3,7 +3,7 @@ package com.kmpstudios.universalAppJc.ui.di
 import androidx.navigation3.runtime.EntryProviderScope
 import com.kmpstudios.universalAppJc.ui.navigation.Profile
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
-import com.kmpstudios.universalAppJc.ui.screens.ProfileScreen
+import com.kmpstudios.universalAppJc.ui.screens.profile.ProfileScreen
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

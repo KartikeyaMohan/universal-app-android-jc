@@ -1,5 +1,6 @@
 package com.kmpstudios.universalAppJc.ui.screens.movies
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -24,6 +25,8 @@ import com.kmpstudios.universalAppJc.data.models.movies.MovieData
 import com.kmpstudios.universalAppJc.ui.navigation.LocalNavigator
 import com.kmpstudios.universalAppJc.ui.navigation.MovieDetails
 import com.kmpstudios.universalAppJc.ui.navigation.Navigator
+import com.kmpstudios.universalAppJc.ui.screens.BaseScreen
+import com.kmpstudios.universalAppJc.ui.theme.AppTheme
 import com.kmpstudios.universalAppJc.ui.utils.TestTags
 import com.kmpstudios.universalAppJc.ui.viewmodels.MovieViewModel
 import com.kmpstudios.universalAppJc.ui.views.movies.MovieItem
@@ -32,29 +35,34 @@ import com.kmpstudios.universalAppJc.ui.views.movies.MovieItem
 fun MovieScreen(
     movieViewModel: MovieViewModel = hiltViewModel()
 ) {
+    val colors = AppTheme.colors
     val navigator = LocalNavigator.current
     val lazyPagingItems = movieViewModel.moviesPager.collectAsLazyPagingItems()
 
-    when (lazyPagingItems.loadState.refresh) {
-        is LoadState.Loading -> {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .semantics { testTag = TestTags.LOADING_INDICATOR},
-                contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
+    BaseScreen(showTopBar = true) {
+        when (lazyPagingItems.loadState.refresh) {
+            is LoadState.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(colors.backgroundPrimary)
+                        .semantics { testTag = TestTags.LOADING_INDICATOR},
+                    contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
             }
-        }
-        is LoadState.Error -> {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .semantics { testTag = TestTags.ERROR_MESSAGE },
-                contentAlignment = Alignment.Center) {
-                Text("Something went wrong")
+            is LoadState.Error -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(colors.backgroundPrimary)
+                        .semantics { testTag = TestTags.ERROR_MESSAGE },
+                    contentAlignment = Alignment.Center) {
+                    Text("Something went wrong")
+                }
             }
+            else -> MovieList(navigator, lazyPagingItems)
         }
-        else -> MovieList(navigator, lazyPagingItems)
     }
 }
 

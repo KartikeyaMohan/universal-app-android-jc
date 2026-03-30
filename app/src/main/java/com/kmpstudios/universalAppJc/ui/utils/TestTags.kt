@@ -5,13 +5,13 @@ object TestTags {
     const val PROFILE_SCREEN = "screen_profile"
 
     const val TAB_HOME = "tab_home"
-    const val TAB_MORE = "tab_more"
+    const val TAB_PROFILE = "tab_profile"
     const val TAB_MOVIE = "tab_movie"
     const val TAB_LOCATION = "tab_location"
 
     const val CARD_HOME_TO_MOVIE = "card_home_to_movie"
     const val CARD_HOME_TO_LOCATION = "card_home_to_location"
-    const val CARD_HOME_TO_MORE = "card_home_to_more"
+    const val CARD_HOME_TO_PROFILE = "card_home_to_profile"
 
     const val MOVIE_LIST = "movie_list"
     const val MOVIE_ITEM = "movie_item"
