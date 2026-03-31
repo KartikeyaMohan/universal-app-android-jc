@@ -1,5 +1,6 @@
 package com.kmpstudios.universalAppJc.ui.views
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -7,21 +8,24 @@ import com.kmpstudios.universalAppJc.ui.navigation.Home
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.MoreHoriz
+import androidx.compose.material.icons.filled.Man
 import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.material.icons.outlined.MoreHoriz
+import androidx.compose.material.icons.outlined.Man
 import androidx.compose.material.icons.outlined.Movie
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import com.kmpstudios.universalAppJc.ui.navigation.Location
-import com.kmpstudios.universalAppJc.ui.navigation.More
+import com.kmpstudios.universalAppJc.ui.navigation.Profile
 import com.kmpstudios.universalAppJc.ui.navigation.Movie
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
+import com.kmpstudios.universalAppJc.ui.theme.AppTheme
 import com.kmpstudios.universalAppJc.ui.utils.TestTags
 
 data class Tabs(
@@ -31,11 +35,13 @@ data class Tabs(
     val selectedIcon: ImageVector = icon
 )
 
+val homeTab = Tabs(Home, "Home", Icons.Outlined.Home, Icons.Filled.Home)
+
 val BOTTOM_TABS = listOf(
-    Tabs(Home, "Home", Icons.Outlined.Home, Icons.Filled.Home),
+    homeTab,
     Tabs(Movie, "Movies", Icons.Outlined.Movie, Icons.Filled.Movie),
     Tabs(Location, "Location", Icons.Outlined.LocationOn, Icons.Filled.LocationOn),
-    Tabs(More, "More", Icons.Outlined.MoreHoriz, Icons.Filled.MoreHoriz)
+    Tabs(Profile, "Profile", Icons.Outlined.Man, Icons.Filled.Man)
 )
 
 @Composable
@@ -43,13 +49,16 @@ fun BottomBar(
     currentKey: NavKey,
     onTabSelected: (NavKey) -> Unit
 ) {
-    NavigationBar {
+    val colors = AppTheme.colors
+    NavigationBar(
+        containerColor = colors.backgroundElevated
+    ) {
         BOTTOM_TABS.forEach { tab ->
             val selected = currentKey::class == tab.key::class
 
             val tag = when(tab.key) {
                 is Home -> TestTags.TAB_HOME
-                is More -> TestTags.TAB_MORE
+                is Profile -> TestTags.TAB_PROFILE
                 is Movie -> TestTags.TAB_MOVIE
                 is Location -> TestTags.TAB_LOCATION
                 else -> ""
@@ -62,10 +71,19 @@ fun BottomBar(
                 icon = {
                     Icon(
                         imageVector = if (selected) tab.selectedIcon else tab.icon,
-                        contentDescription = tab.label
+                        contentDescription = tab.label,
+                        tint = colors.brandAccent
                     )
                 },
-                label = { Text(tab.label) }
+                label = {
+                    Text(
+                        text = tab.label,
+                        fontSize = 16.sp,
+                        color = colors.textPrimary,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
+                    )
+                }
             )
         }
     }

@@ -19,9 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.kmpstudios.universalAppJc.data.models.movies.Cast
+import com.kmpstudios.universalAppJc.ui.theme.AppTheme
 
 @Composable
 fun CastItem(cast: Cast, modifier: Modifier) {
+    val colors = AppTheme.colors
     Box(modifier = modifier.width(120.dp),
         contentAlignment = Alignment.Center) {
         Column {
@@ -40,12 +42,14 @@ fun CastItem(cast: Cast, modifier: Modifier) {
                 text = cast.name ?: "",
                 fontSize = 14.sp,
                 textAlign = TextAlign.Center,
+                color = colors.textPrimary,
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
                 text = cast.castType ?: "",
                 fontSize = 12.sp,
                 textAlign = TextAlign.Center,
+                color = colors.textSecondary,
                 modifier = Modifier.fillMaxWidth()
             )
         }

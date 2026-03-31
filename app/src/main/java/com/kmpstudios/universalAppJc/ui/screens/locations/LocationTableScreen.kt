@@ -48,6 +48,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.kmpstudios.universalAppJc.data.models.locations.LocationEntity
+import com.kmpstudios.universalAppJc.ui.theme.AppTheme
 import com.kmpstudios.universalAppJc.ui.viewmodels.LocationViewModel
 
 private data class ColumnDef(val header: String, val width: Dp, val align: TextAlign = TextAlign.Start)
@@ -104,10 +105,11 @@ private fun LocationsTable(
     modifier: Modifier = Modifier
 ) {
 
-    val headerBg  = MaterialTheme.colorScheme.primary
-    val evenRowBg = MaterialTheme.colorScheme.surface
-    val oddRowBg  = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-    val borderCol = MaterialTheme.colorScheme.outline.copy(alpha = 0.25f)
+    val colors = AppTheme.colors
+    val headerBg  = colors.backgroundPrimary
+    val evenRowBg = colors.surfaceDefault
+    val oddRowBg  = colors.surfaceBorder.copy(alpha = 0.5f)
+    val borderCol = colors.divider.copy(alpha = 0.25f)
 
     val hScroll = rememberScrollState()
 
@@ -128,7 +130,7 @@ private fun LocationsTable(
                             text = col.header,
                             width = col.width,
                             align = col.align,
-                            textColor = Color.White,
+                            textColor = colors.textPrimary,
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp,
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 10.dp)
@@ -178,7 +180,7 @@ private fun LocationsTable(
                                 align = TextAlign.End,
                                 fontFamily = FontFamily.Monospace,
                                 fontSize = 12.sp,
-                                textColor = MaterialTheme.colorScheme.primary
+                                textColor = colors.textPrimary
                             )
                             TableCell(
                                 text = "%.6f".format(loc.longitude),
@@ -186,7 +188,7 @@ private fun LocationsTable(
                                 align = TextAlign.End,
                                 fontFamily = FontFamily.Monospace,
                                 fontSize = 12.sp,
-                                textColor = MaterialTheme.colorScheme.primary
+                                textColor = colors.textPrimary
                             )
                             AccuracyCell(
                                 accuracy = loc.accuracy,
@@ -215,6 +217,7 @@ private fun LocationsTable(
 
 @Composable
 private fun EmptyState(modifier: Modifier = Modifier) {
+    val colors = AppTheme.colors
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -224,20 +227,20 @@ private fun EmptyState(modifier: Modifier = Modifier) {
             imageVector = Icons.Default.LocationSearching,
             contentDescription = null,
             modifier = Modifier.size(80.dp),
-            tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
+            tint = colors.textPrimary
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = "No locations yet",
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+            color = colors.textSecondary
         )
         Spacer(modifier = Modifier.height(6.dp))
         Text(
             text = "Start the tracking service to begin\ncollecting location data.",
             style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),
+            color = colors.textSecondary,
             textAlign = TextAlign.Center
         )
     }

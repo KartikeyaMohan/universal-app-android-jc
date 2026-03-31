@@ -1,7 +1,7 @@
 package com.kmpstudios.universalAppJc.ui.di
 
 import androidx.navigation3.runtime.EntryProviderScope
-import com.kmpstudios.universalAppJc.ui.screens.HomeScreen
+import com.kmpstudios.universalAppJc.ui.screens.home.HomeScreen
 import com.kmpstudios.universalAppJc.ui.navigation.Home
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
 import dagger.Module

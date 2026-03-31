@@ -30,7 +30,7 @@ class MovieDetailsViewModel @AssistedInject constructor(
         getMovieDetails()
     }
 
-    fun getMovieDetails() {
+    private fun getMovieDetails() {
         viewModelScope.launch {
             val response = getMovieDetailsUseCase.execute(movieId)
             if (response.isSuccess()) {

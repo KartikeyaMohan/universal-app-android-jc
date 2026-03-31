@@ -2,20 +2,20 @@ package com.kmpstudios.universalAppJc.integration
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.kmpstudios.universalAppJc.HiltTestActivity
 import com.kmpstudios.universalAppJc.di.TestApiModule
 import com.kmpstudios.universalAppJc.fake.FakeResponses
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
 import com.kmpstudios.universalAppJc.ui.screens.movies.MovieDetailScreen
 import com.kmpstudios.universalAppJc.ui.utils.TestTags
 import com.kmpstudios.universalAppJc.ui.viewmodels.MovieDetailsViewModel
+import com.kmpstudios.universalAppJc.utils.ComposeHiltThemeRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.SocketPolicy
@@ -33,8 +33,11 @@ class MovieDetailScreenIntegrationTest {
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 
+    private val themeRule = ComposeHiltThemeRule()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
     @get:Rule(order = 1)
-    val composeTestRule = createAndroidComposeRule<HiltTestActivity>()
+    val composeTestRule = themeRule.composeTestRule
 
     private lateinit var mockWebServer: MockWebServer
 
@@ -81,7 +84,7 @@ class MovieDetailScreenIntegrationTest {
                 .setBodyDelay(2, TimeUnit.SECONDS)
         )
 
-        composeTestRule.setContent {
+        themeRule.setContent {
             val viewModel: MovieDetailsViewModel = hiltViewModel(
                 creationCallback = { factory: MovieDetailsViewModel.HiltFactory ->
                     factory.create(1L)
@@ -103,7 +106,7 @@ class MovieDetailScreenIntegrationTest {
     fun detailScreen_showsMovieName_onSuccess() {
         enqueueMockResponse(FakeResponses.movieDetailSuccessResponse)
 
-        composeTestRule.setContent {
+        themeRule.setContent {
             val viewModel: MovieDetailsViewModel = hiltViewModel(
                 creationCallback = { factory: MovieDetailsViewModel.HiltFactory ->
                     factory.create(1L)
@@ -127,7 +130,7 @@ class MovieDetailScreenIntegrationTest {
     fun detailScreen_showsRating_onSuccess() {
         enqueueMockResponse(FakeResponses.movieDetailSuccessResponse)
 
-        composeTestRule.setContent {
+        themeRule.setContent {
             val viewModel: MovieDetailsViewModel = hiltViewModel(
                 creationCallback = { factory: MovieDetailsViewModel.HiltFactory ->
                     factory.create(1L)
@@ -151,7 +154,7 @@ class MovieDetailScreenIntegrationTest {
     fun detailScreen_showsDescription_onSuccess() {
         enqueueMockResponse(FakeResponses.movieDetailSuccessResponse)
 
-        composeTestRule.setContent {
+        themeRule.setContent {
             val viewModel: MovieDetailsViewModel = hiltViewModel(
                 creationCallback = { factory: MovieDetailsViewModel.HiltFactory ->
                     factory.create(1L)
@@ -175,7 +178,7 @@ class MovieDetailScreenIntegrationTest {
     fun detailScreen_showsCastList_onSuccess() {
         enqueueMockResponse(FakeResponses.movieDetailSuccessResponse)
 
-        composeTestRule.setContent {
+        themeRule.setContent {
             val viewModel: MovieDetailsViewModel = hiltViewModel(
                 creationCallback = { factory: MovieDetailsViewModel.HiltFactory ->
                     factory.create(1L)
@@ -208,7 +211,7 @@ class MovieDetailScreenIntegrationTest {
         // On error, movieDetailResponse stays null → loading indicator stays visible
         enqueueMockResponse(FakeResponses.movieDetailErrorResponse, responseCode = 404)
 
-        composeTestRule.setContent {
+        themeRule.setContent {
             val viewModel: MovieDetailsViewModel = hiltViewModel(
                 creationCallback = { factory: MovieDetailsViewModel.HiltFactory ->
                     factory.create(1L)
@@ -239,7 +242,7 @@ class MovieDetailScreenIntegrationTest {
             MockResponse().setSocketPolicy(SocketPolicy.DISCONNECT_AT_START)
         )
 
-        composeTestRule.setContent {
+        themeRule.setContent {
             val viewModel: MovieDetailsViewModel = hiltViewModel(
                 creationCallback = { factory: MovieDetailsViewModel.HiltFactory ->
                     factory.create(1L)

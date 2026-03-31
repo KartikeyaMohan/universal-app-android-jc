@@ -2,7 +2,7 @@ package com.kmpstudios.universalAppJc.navigation
 
 import androidx.compose.runtime.mutableStateListOf
 import com.kmpstudios.universalAppJc.ui.navigation.Home
-import com.kmpstudios.universalAppJc.ui.navigation.More
+import com.kmpstudios.universalAppJc.ui.navigation.Profile
 import com.kmpstudios.universalAppJc.ui.navigation.Movie
 import com.kmpstudios.universalAppJc.ui.navigation.NavKey
 import junit.framework.TestCase.assertEquals
@@ -19,11 +19,11 @@ class BackStackTest {
     }
 
     @Test
-    fun `navigating to More pushes onto backstack`() {
-        backStack.add(More)
+    fun `navigating to Profile pushes onto backstack`() {
+        backStack.add(Profile)
 
         assertEquals(2, backStack.size)
-        assertEquals(More, backStack.last())
+        assertEquals(Profile, backStack.last())
     }
 
     @Test
@@ -36,7 +36,7 @@ class BackStackTest {
 
     @Test
     fun `back press pops last entry`() {
-        backStack.add(More)
+        backStack.add(Profile)
         backStack.removeLastOrNull()
 
         assertEquals(1, backStack.size)
@@ -52,8 +52,8 @@ class BackStackTest {
 
     @Test
     fun `tab switch clears backstack and sets new root`() {
-        backStack.add(More)
-        backStack.add(More)
+        backStack.add(Profile)
+        backStack.add(Profile)
 
         backStack.clear()
         backStack.add(Home)
@@ -69,9 +69,9 @@ class BackStackTest {
         if (backStack.last()::class != key::class) {
             backStack.add(key)
         }
-        backStack.add(More)
-        if (backStack.last()::class != More::class) {
-            backStack.add(More)
+        backStack.add(Profile)
+        if (backStack.last()::class != Profile::class) {
+            backStack.add(Profile)
         }
 
         assertEquals(2, backStack.size)
