@@ -23,7 +23,7 @@ class ProfileViewModel @Inject constructor(
         getProfile()
     }
 
-    fun getProfile() {
+    private fun getProfile() {
         viewModelScope.launch {
             val response = getUserProfileUseCase.execute()
             if (response.isSuccess()) {

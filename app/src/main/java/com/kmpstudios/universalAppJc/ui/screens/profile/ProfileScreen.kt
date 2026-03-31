@@ -91,6 +91,7 @@ fun ProfileScreen(
                     .fillMaxWidth()
                     .height(50.dp)
                     .padding(horizontal = 20.dp)
+                    .semantics { testTag = TestTags.LOGOUT_CLICK }
             ) {
                 Text(
                     text = "Logout",

@@ -34,4 +34,6 @@ object TestTags {
     const val REGISTER_PASSWORD = "register_password"
     const val REGISTER_CONFIRM_PASSWORD = "register_confirm_password"
     const val REGISTER_SUBMIT = "register_submit"
+
+    const val LOGOUT_CLICK = "logout_click"
 }
