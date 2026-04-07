@@ -20,6 +20,7 @@ class LocationSyncScheduler @Inject constructor(
     companion object {
         const val WORK_NAME = "location_sync_periodic_worker"
         private const val SYNC_INTERVAL_HOURS = 3L
+        private const val BACK_OFF_DURATION_MINUTES = 15L
     }
 
     fun schedule() {
@@ -28,12 +29,12 @@ class LocationSyncScheduler @Inject constructor(
             .build()
 
         val syncRequest = PeriodicWorkRequestBuilder<LocationSyncWorker>(
-            15, TimeUnit.MINUTES
+            SYNC_INTERVAL_HOURS, TimeUnit.HOURS
         )
             .setConstraints(constraints)
             .setBackoffCriteria(
                 BackoffPolicy.EXPONENTIAL,
-                SYNC_INTERVAL_HOURS, TimeUnit.HOURS
+                BACK_OFF_DURATION_MINUTES, TimeUnit.MINUTES
             )
             .build()
 

@@ -53,7 +53,10 @@ object ApiModule {
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(headersInterceptor)
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        if (BuildConfig.DEBUG) {
+            okHttpClient
+                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        }
         return okHttpClient.build()
     }
 
@@ -78,7 +81,7 @@ object ApiModule {
             }
             chain.proceed(chainBuilder.build())
         } catch (exception: Exception) {
-            throw okio.IOException(exception);
+            throw okio.IOException(exception)
         }
     }
 }
